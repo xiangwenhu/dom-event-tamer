@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        globalThis.exports = {};
+    </script>
+    <script src="../dist/index.js"></script>
+    <script>
+
+        const resizeTamer = new EventTamer(window, "resize", false);
+        resizeTamer.subscribe();
+
+        resizeTamer.add((ev) => {
+            console.log("resize1")
+        }, {
+            name: "resize1"
+        });
+
+        function resize2() {
+            console.log("resize2");
+        }
+        resizeTamer.add(resize2, {
+            name: "resize2"
+        });
+        console.log(resizeTamer.summary(true));
+
+        resizeTamer.remove(resize2);
+
+        resizeTamer.add((ev) => {
+            console.log("resize3");
+            console.log(globalThis.exports);
+        }, {
+            name: "resize3"
+        });
+
+        console.log(resizeTamer.summary(true));
+
+        // resizeTamer.unsubscribe();
+        // console.log(resizeTamer.summary());
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "dom-event-tamer",
+  "version": "0.0.1",
+  "description": "dom event 驯兽师",
+  "type": "commonjs",
+  "homepage": "https://github.com/xiangwenhu/dom-event-tamer",
+  "contributors": [
+    "xiangwenhu (https://github.com/xiangwenhu)"
+  ],
+  "main": "./dist/index.js",
+  "typing": "./dist/index.d.ts",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "pub": "npm run build && npm publish"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
