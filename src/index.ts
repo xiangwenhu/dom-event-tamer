@@ -16,10 +16,10 @@ export class EventTamer {
 
     constructor(private el: EventTamerElement, private type: string, private options?: boolean | AddEventListenerOptions) {
         if (!el) {
-            throw Error("SoleEventContainer el 必须是有效的元素");
+            throw Error("EventTamer el 必须是有效的元素");
         }
         if (!type) {
-            throw Error("SoleEventContainer event 必须是有效的事件名");
+            throw Error("EventTamer event 必须是有效的事件名");
         }
     }
 
