@@ -2,7 +2,7 @@
   "name": "dom-event-tamer",
   "version": "0.0.1",
   "description": "dom event 驯兽师",
-  "type": "commonjs",
+  "type": "module",
   "homepage": "https://github.com/xiangwenhu/dom-event-tamer",
   "contributors": [
     "xiangwenhu (https://github.com/xiangwenhu)"
@@ -12,6 +12,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
+    "build-mjs": "tsc -p ./tsconfig.mjs.json",
     "pub": "npm run build && npm publish"
   },
   "keywords": [],

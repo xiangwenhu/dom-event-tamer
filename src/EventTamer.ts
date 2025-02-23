@@ -43,4 +43,8 @@ export class EventTamer<T extends EventTarget> {
             }
         }
     }
+
+    summary(){
+        return this.eventsMap.getEventsObj(this.target)
+    }
 }

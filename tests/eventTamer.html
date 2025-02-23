@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script type="module">
+            import { EventTamer } from "../dist/EventTamer.js";
+
+            const tamer = new EventTamer(window);
+
+            tamer.add("resize", function resize1(){
+                console.log("resize1");
+            });
+
+            function resize2() {
+                console.log("resize2");
+            }
+            tamer.add("resize", resize2);
+
+            console.log(tamer.summary())
+
+            tamer.remove("resize", resize2);
+            console.log(tamer.summary())
+
+            tamer.add("resize", function resize3() {
+                console.log("resize3");
+                console.log(globalThis.exports);
+            });
+            console.log(tamer.summary())
+
+        </script>
+    </body>
+</html>

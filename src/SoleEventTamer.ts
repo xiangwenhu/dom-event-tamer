@@ -9,7 +9,7 @@ export interface EventTamerListenerObject {
     listener: EventListenerOrEventListenerObject;
 }
 
-export class EventTamer {
+export class SoleEventTamer {
 
     private listeners: EventTamerListenerObject[] = [];
     private isSubscribed: boolean = false;
@@ -55,9 +55,11 @@ export class EventTamer {
         this.isSubscribed = true;
     }
 
-    unsubscribe() {
+    unsubscribe(clear: boolean) {
         this.el.removeEventListener(this.type, this.onEvent, this.options);
-        this.listeners = [];
+        if (clear) {
+            this.listeners = [];
+        }
         this.isSubscribed = false;
     }
 
