@@ -11,9 +11,16 @@
   "typing": "./dist/index.d.ts",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "build-mjs": "tsc -p ./tsconfig.mjs.json",
-    "pub": "npm run build && npm publish"
+    "build": "npm run clear && tsc",
+    "build-mjs": "npm run clear && tsc -p ./tsconfig.mjs.json && npm run addJs",
+    "pub": "npm run build && npm publish",
+    "addJs": "ts-node ./scripts/addJsExtensionToImports.mjs",
+    "clear": "ts-node ./scripts/clear.mjs"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "@types/node": "^20.10.0"
   },
   "keywords": [],
   "author": "",

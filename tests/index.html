@@ -12,10 +12,9 @@
     <script>
         globalThis.exports = {};
     </script>
-    <script src="../dist/index.js"></script>
-    <script>
-
-        const resizeTamer = new EventTamer(window, "resize", false);
+    <script type="module">
+        import SoleEventTamer from "../dist/SoleEventTamer.js"
+        const resizeTamer = new SoleEventTamer(window, "resize", false);
         resizeTamer.subscribe();
 
         resizeTamer.add((ev) => {

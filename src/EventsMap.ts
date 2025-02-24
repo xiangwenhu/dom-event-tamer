@@ -1,9 +1,9 @@
 import { EventOptions, EventsMapItem, EventType, EvmEventsMapOptions, ISameFunction, ISameOptions } from "./types";
-import { isSameFunction } from "./utils";
+import { isSameFunction } from "./utils/index";
 import { copyListenerOption, isSameOptions } from "./utils/dom";
 
 const DEFAULT_OPTIONS: EvmEventsMapOptions = {
-    isSameOptions: isSameOptions,
+    isSameOptions,
     isSameFunction,
 }
 
@@ -25,7 +25,7 @@ export default class EvmEventsMap {
 
     /**
      * 添加
-     * @param target object或者 WeakRef(object)
+     * @param target object
      * @param event 事件类型，比如message,click等
      * @param listener 事件处理程序
      */
@@ -57,7 +57,7 @@ export default class EvmEventsMap {
 
     /**
      * 添加
-     * @param target object或者 WeakRef(object)
+     * @param target object
      * @param event 事件类型，比如message,click等
      * @param listener 事件处理程序
      */
@@ -114,6 +114,9 @@ export default class EvmEventsMap {
         return infos.delete(event);
     }
 
+    removeByTarget(target: object) {
+        const infos = this.#map.delete(target)
+    }
 
 
     /**
@@ -144,7 +147,7 @@ export default class EvmEventsMap {
      * @param options 
      * @returns 
      */
-    hasListener(target: Object, event: EventType, listener: Function, options: EventOptions) {
+    hasListener(target: Object, event: EventType, listener: EventListenerOrEventListenerObject, options: EventOptions) {
         const t = this.#map.get(target);
         if (!t) return false;
         const wrListeners = t.get(event);
@@ -171,7 +174,7 @@ export default class EvmEventsMap {
      * @param options 
      * @returns 
      */
-    getExtremelyItems(target: Object, event: EventType, listener: Function, options: EventOptions) {
+    getExtremelyItems(target: Object, event: EventType, listener: EventListenerOrEventListenerObject, options: EventOptions) {
 
         const eventsObj = this.getEventsObj(target);
         if (!eventsObj) {

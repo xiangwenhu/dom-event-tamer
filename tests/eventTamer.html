@@ -1,36 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-    </head>
-    <body>
-        <script type="module">
-            import { EventTamer } from "../dist/EventTamer.js";
 
-            const tamer = new EventTamer(window);
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
 
-            tamer.add("resize", function resize1(){
-                console.log("resize1");
-            });
+<body>
+    <script type="module">
+        import { EventTamer } from "../dist/EventTamer.js";
 
-            function resize2() {
-                console.log("resize2");
+        const windowTamer = new EventTamer(window, {
+            getElement() {
+                return window
             }
-            tamer.add("resize", resize2);
+        });
 
-            console.log(tamer.summary())
+        windowTamer.add("resize", function resize1() {
+            console.log("resize1");
+        });
 
-            tamer.remove("resize", resize2);
-            console.log(tamer.summary())
+        function resize2() {
+            console.log("resize2");
+        }
+        windowTamer.add("resize", resize2);
 
-            tamer.add("resize", function resize3() {
-                console.log("resize3");
-                console.log(globalThis.exports);
-            });
-            console.log(tamer.summary())
+        console.log(windowTamer.summary())
 
-        </script>
-    </body>
+        windowTamer.remove("resize", resize2);
+        console.log(windowTamer.summary())
+
+        windowTamer.add("resize", function resize3() {
+            console.log("resize3");
+            console.log(globalThis.exports);
+        });
+
+
+        window.addEventListener("resize", function resize4() {
+            console.log("resize4")
+        })
+
+        console.log(windowTamer.summary());
+
+        window.windowTamer = windowTamer
+
+    </script>
+</body>
+
 </html>

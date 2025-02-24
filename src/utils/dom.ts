@@ -1,4 +1,4 @@
-import { createPureObject, hasOwnProperty, isBoolean, isObject } from ".";
+import { createPureObject, hasOwnProperty, isBoolean, isObject } from "./index";
 
 /**
  * 获取
@@ -77,4 +77,17 @@ export function copyListenerOption<T = any>(options: T) {
         result[p] = v;
     }
     return result;
+}
+
+
+export function getListenerName(listener: EventListenerOrEventListenerObject) {
+    const fun = getListenerFunction(listener);
+    return fun.name
+}
+
+export function getListenerFunction(listener: EventListenerOrEventListenerObject) {
+    if (typeof listener === "function") {
+        return listener
+    }
+    return listener.handleEvent;
 }

@@ -112,3 +112,52 @@ export function isBuiltinFunctionContent(content: string): boolean {
 export function isSameStringifyObject(obj1: unknown, obj2: unknown) {
     return JSON.stringify(obj1) === JSON.stringify(obj2)
 }
+
+export function booleanFalse(): boolean {
+    return false;
+}
+
+/**
+ * 还原属性方法
+ * @param target 
+ * @param oriTarget 
+ * @param properties 
+ */
+export function restoreProperties(target: any, oriTarget: any, properties: string[]): void {
+    properties.forEach(pname => {
+        if ( (pname in target) && isFunction(target[pname])) {
+            if (pname in Object.getPrototypeOf(oriTarget)) {
+                // 因为是原型上有，删除自身即可
+                // target[pname] = oriTarget[pname]
+                delete target[pname]
+            } else {
+                target[pname] = oriTarget[pname]
+            }
+        }
+    })
+}
+
+export function isStrict(this: any) {
+    return this === undefined;
+};
+
+const regexpUseStrict = /^function[^(]*\([^)]*\)\s*\{\s*(["'])use strict\1/
+export function isFunctionStrict(fn: Function) {
+    return regexpUseStrict.test(fn.toString())
+}
+
+export function getStack(fn: Function): string[] {
+    const stacks: string[] = [];
+
+    // 严格模式
+    if (isStrict() || isFunctionStrict(fn)) {
+        return stacks;
+    }
+    stacks.unshift(`function ${fn.name}`);
+    let caller = fn.caller;
+    while (caller) {
+        stacks.unshift(`function ${caller.name}`);
+        caller = caller.caller;
+    }
+    return stacks;
+}

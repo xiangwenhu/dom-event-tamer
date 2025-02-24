@@ -1,5 +1,5 @@
 
-export type EventOptions =  boolean | AddEventListenerOptions;
+export type EventOptions = boolean | AddEventListenerOptions | undefined;
 
 export interface EventsMapItem {
     listener: EventListenerOrEventListenerObject;
@@ -17,45 +17,34 @@ export interface ISameFunction {
     (fn1: any, fn2: any, ...args: any[]): boolean;
 }
 
-export interface BaseEvmOptions<S = any> {
-    /**
-     * 是否是相同选项
-     */
-    isSameOptions?: ISameOptions<S>;
-}
-
-
-export interface EVMBaseEventListener<R = void> {
-    (target: Object, event: string, listener: Function, options: EventOptions): R
-}
-
-export interface ListenerWrapper {
-    listener: Function
-}
-
-export interface StatisticsOptions {
-    containsContent?: boolean;
-    forceGC?: boolean;
-}
-
 export interface EvmEventsMapOptions {
     isSameOptions?: ISameOptions;
     isSameFunction?(fun1: Function, fun2: Function): boolean;
 }
 
 
-type EVMOptions = BaseEvmOptions & {
-    et?: Object
+export type BooleanFunction = () => boolean;
+
+export interface BaseEvmOptions<S = any> {
+    /**
+     * 是否是相同选项
+     */
+    isSameOptions?: ISameOptions<S>;
+    /**
+     * 最大的函数内容截取长度
+     */
+    maxContentLength?: number;
+    /**
+     * 是否重写bind函数
+     */
+    overrideBind?: boolean;
 }
 
-export interface CreateOptions {
-    events?: EVMOptions,
-    cEvents?: EVMOptions,
-    eTarget?: EVMOptions
+
+export interface StatisticsOptions {
+    containsContent?: boolean;
 }
 
-export enum EnumEVMType {
-    events = "events",
-    cEvents = "cEvents",
-    eTarget = "eTarget"
+export interface EVMBaseEventListener<R = void, ET = EventType> {
+    (target: Object, event: ET, listener: EventListenerOrEventListenerObject, options: EventOptions): R
 }

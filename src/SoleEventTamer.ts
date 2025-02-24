@@ -9,17 +9,17 @@ export interface EventTamerListenerObject {
     listener: EventListenerOrEventListenerObject;
 }
 
-export class SoleEventTamer {
+export default class SoleEventTamer {
 
     private listeners: EventTamerListenerObject[] = [];
     private isSubscribed: boolean = false;
 
     constructor(private el: EventTamerElement, private type: string, private options?: boolean | AddEventListenerOptions) {
         if (!el) {
-            throw Error("EventTamer el 必须是有效的元素");
+            throw Error("SoleEventTamer el 必须是有效的元素");
         }
         if (!type) {
-            throw Error("EventTamer event 必须是有效的事件名");
+            throw Error("SoleEventTamer event 必须是有效的事件名");
         }
     }
 

@@ -1,8 +1,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "module": "ESNext", // 使用 ES 模块
+    "module": "ES2015",
+    "target": "ES2015",
     "moduleResolution": "node", // 使用 Node.js 的模块解析策略
-    "sourceMap": true, // 生成对应的 .map 文件
+    "sourceMap": false, // 生成对应的 .map 文件
+    "declaration": false
   }
 }
